@@ -1,0 +1,29 @@
+# Demo CI workflow with TcUnit-Runner
+name: TcUnit-Runner  
+ 
+trigger:
+    - main
+pr:
+    - main  
+ 
+pool: 'tcunit'    # self-hosted agent  
+ 
+steps: 
+ 
+- checkout: self 
+    displayName: 'Checkout repository'
+ 
+- task: CmdLine@2
+    displayName: 'Run PLC unit-tests with TcUnit-Runner'
+    condition: succeeded()
+    inputs:
+        failOnStderr: true
+        # Start TcUnit-Runner with a timeout of 5 min
+        script: '"C:\Program Files (x86)\TcUnit-Runner\LaunchTcUnit.bat" -U 5'
+     
+- task: PublishTestResults@2
+    displayName: Publish TcUnit results
+    condition: or(succeeded(),failed())     
+    inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TcUnit_xUnit_results.xml'

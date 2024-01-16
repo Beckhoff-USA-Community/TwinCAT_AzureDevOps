@@ -2,9 +2,9 @@
 name: TcUnit-Runner  
  
 trigger:
-  - main
+  - master
 pr:
-  - main  
+  - master
  
 pool: 'Default'    # self-hosted agent  
  

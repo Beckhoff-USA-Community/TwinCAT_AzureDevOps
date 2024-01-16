@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="E_StationState" Id="{fb3c3292-f9ff-4337-a2ff-6c8f5013bb4f}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_StationState :
+(
+	IDLE_READY := 0,
+	PART_PRESENT := 1,
+	WORKING := 2,
+	WORK_COMPLETE := 3,
+	FAULTED := 4
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

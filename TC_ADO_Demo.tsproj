@@ -1,0 +1,581 @@
+<?xml version="1.0"?>
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.54">
+	<Project ProjectGUID="{20BF98A4-8B61-461B-A3F3-98EE69E38A6D}" Target64Bit="true" ShowHideConfigurations="#x106">
+		<System>
+			<Settings MaxCpus="12" NonWinCpus="1">
+				<Cpu CpuId="11"/>
+			</Settings>
+			<Tasks>
+				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+					<Name>PlcTask</Name>
+				</Task>
+			</Tasks>
+		</System>
+		<Plc>
+			<Project GUID="{A7710401-C0B0-4CA5-AF33-91A2C35CCB11}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="PLC\PLC.tmc" TmcHash="{48788063-F348-58D0-AE4A-F5BB89245A6F}">
+					<Name>PLC Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="1">
+						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>MAIN.fbCell.bStartBtn</Name>
+							<Comment><![CDATA[ IO]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.bStopBtn</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.bPartPresentAtInfeed</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.bPartPresentAtOutfeed</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbInfeedActuator.bExtended</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbInfeedActuator.bRetracted</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbOutfeedActuator.bExtended</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbOutfeedActuator.bRetracted</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbInfeedConveyor.fActPosition</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbInfeedConveyor.fActVelocity</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbInfeedConveyor.bReady</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbInfeedConveyor.bBusy</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbInfeedConveyor.bError</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbInfeedConveyor.bRunning</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbIndexConveyor.fActPosition</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbIndexConveyor.fActVelocity</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbIndexConveyor.bReady</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbIndexConveyor.bBusy</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbIndexConveyor.bError</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbIndexConveyor.bRunning</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbOutfeedConveyor.fActPosition</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbOutfeedConveyor.fActVelocity</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbOutfeedConveyor.bReady</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbOutfeedConveyor.bBusy</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbOutfeedConveyor.bError</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbOutfeedConveyor.bRunning</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbBarcoder.bPartPresent</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbBarcoder.sBarcode</Name>
+							<Type>STRING(255)</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbFiller.bPartPresent</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbFiller.fVolumeFilled</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbCapper.bPartPresent</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbCapper.bCapDone</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbCapper.bCapFail</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbCheckWeigher.bPartPresent</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbCheckWeigher.fScaleReading</Name>
+							<Type>LREAL</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2" AreaNo="1">
+						<Name>PlcTask Outputs</Name>
+						<Var>
+							<Name>MAIN.fbCell.fFillRate</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbInfeedActuator.bExtendCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbInfeedActuator.bRetractCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbOutfeedActuator.bExtendCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbOutfeedActuator.bRetractCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbInfeedConveyor.bJogFwdCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbInfeedConveyor.bMoveAbsCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbInfeedConveyor.fPositionCmd</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbInfeedConveyor.fVelocityCmd</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbIndexConveyor.bJogFwdCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbIndexConveyor.bMoveAbsCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbIndexConveyor.fPositionCmd</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbIndexConveyor.fVelocityCmd</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbOutfeedConveyor.bJogFwdCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbOutfeedConveyor.bMoveAbsCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbOutfeedConveyor.fPositionCmd</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbOutfeedConveyor.fVelocityCmd</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbBarcoder.bTriggerRead</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbFiller.bFillValve</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbCapper.bClamp</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbCapper.bCapTrigger</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbCell.fbCheckWeigher.bLift</Name>
+							<Type>BOOL</Type>
+						</Var>
+					</Vars>
+					<Contexts>
+						<Context>
+							<Id>0</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010030</OTCID>
+							</ManualConfig>
+							<Priority>20</Priority>
+							<CycleTime>10000000</CycleTime>
+						</Context>
+					</Contexts>
+					<TaskPouOids>
+						<TaskPouOid Prio="20" OTCID="#x08502001"/>
+					</TaskPouOids>
+				</Instance>
+			</Project>
+			<Project GUID="{3CA6AD6D-9730-4384-B9AB-2C933A562319}" Name="SIM" PrjFilePath="SIM\SIM.plcproj" TmcFilePath="SIM\SIM.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="SIM\SIM.tmc" TmcHash="{87A11DD4-A5B9-9E4F-4F22-C61D20AA4C14}">
+					<Name>SIM Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="1">
+						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>MAIN.fbSimCell.fFillRate</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbInfeedActuator.bExtendCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbInfeedActuator.bRetractCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbOutfeedActuator.bExtendCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbOutfeedActuator.bRetractCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbInfeedConveyor.fPositionCmd</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbInfeedConveyor.fVelocityCmd</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbInfeedConveyor.bJogFwdCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbInfeedConveyor.bMoveAbsCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbOutfeedConveyor.fPositionCmd</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbOutfeedConveyor.fVelocityCmd</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbOutfeedConveyor.bJogFwdCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbOutfeedConveyor.bMoveAbsCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbIndexConveyor.fPositionCmd</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbIndexConveyor.fVelocityCmd</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbIndexConveyor.bJogFwdCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbIndexConveyor.bMoveAbsCmd</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbSimScanner.bTriggerRead</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbSimFiller.bFillValve</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbSimCapper.bClamp</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbSimCapper.bCapTrigger</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbSimWeigher.bLift</Name>
+							<Type>BOOL</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2" AreaNo="1">
+						<Name>PlcTask Outputs</Name>
+						<Var>
+							<Name>MAIN.fbSimCell.bPartPresentAtInfeed</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.bPartPresentAtOutfeed</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbInfeedActuator.bExtended</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbInfeedActuator.bRetracted</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbOutfeedActuator.bExtended</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbOutfeedActuator.bRetracted</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbInfeedConveyor.fActPosition</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbInfeedConveyor.fActVelocity</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbInfeedConveyor.bReady</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbInfeedConveyor.bBusy</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbInfeedConveyor.bError</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbInfeedConveyor.bRunning</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbOutfeedConveyor.fActPosition</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbOutfeedConveyor.fActVelocity</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbOutfeedConveyor.bReady</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbOutfeedConveyor.bBusy</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbOutfeedConveyor.bError</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbOutfeedConveyor.bRunning</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbIndexConveyor.fActPosition</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbIndexConveyor.fActVelocity</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbIndexConveyor.bReady</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbIndexConveyor.bBusy</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbIndexConveyor.bError</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbIndexConveyor.bRunning</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbSimScanner.sBarcode</Name>
+							<Type>STRING(255)</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbSimScanner.bPartPresent</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbSimFiller.fVolumeFilled</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbSimFiller.bPartPresent</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbSimCapper.bCapDone</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbSimCapper.bCapFail</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbSimCapper.bPartPresent</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbSimWeigher.fScaleReading</Name>
+							<Type>LREAL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSimCell.fbSimWeigher.bPartPresent</Name>
+							<Type>BOOL</Type>
+						</Var>
+					</Vars>
+					<Contexts>
+						<Context>
+							<Id>0</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010030</OTCID>
+							</ManualConfig>
+							<Priority>20</Priority>
+							<CycleTime>10000000</CycleTime>
+						</Context>
+					</Contexts>
+					<TaskPouOids>
+						<TaskPouOid Prio="20" OTCID="#x08502041"/>
+					</TaskPouOids>
+				</Instance>
+			</Project>
+		</Plc>
+		<Io/>
+	</Project>
+	<Mappings>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500840205008}" Id="#x02030010"/>
+		<OwnerA Name="TIPC^PLC^PLC Instance">
+			<OwnerB Name="TIPC^SIM^SIM Instance">
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.bPartPresentAtInfeed" VarB="PlcTask Outputs^MAIN.fbSimCell.bPartPresentAtInfeed"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.bPartPresentAtOutfeed" VarB="PlcTask Outputs^MAIN.fbSimCell.bPartPresentAtOutfeed"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbBarcoder.bPartPresent" VarB="PlcTask Outputs^MAIN.fbSimCell.fbSimScanner.bPartPresent"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbBarcoder.sBarcode" VarB="PlcTask Outputs^MAIN.fbSimCell.fbSimScanner.sBarcode"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbCapper.bCapDone" VarB="PlcTask Outputs^MAIN.fbSimCell.fbSimCapper.bCapDone"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbCapper.bCapFail" VarB="PlcTask Outputs^MAIN.fbSimCell.fbSimCapper.bCapFail"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbCapper.bPartPresent" VarB="PlcTask Outputs^MAIN.fbSimCell.fbSimCapper.bPartPresent"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbCheckWeigher.bPartPresent" VarB="PlcTask Outputs^MAIN.fbSimCell.fbSimWeigher.bPartPresent"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbCheckWeigher.fScaleReading" VarB="PlcTask Outputs^MAIN.fbSimCell.fbSimWeigher.fScaleReading"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbFiller.bPartPresent" VarB="PlcTask Outputs^MAIN.fbSimCell.fbSimFiller.bPartPresent"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbFiller.fVolumeFilled" VarB="PlcTask Outputs^MAIN.fbSimCell.fbSimFiller.fVolumeFilled"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbIndexConveyor.bBusy" VarB="PlcTask Outputs^MAIN.fbSimCell.fbIndexConveyor.bBusy"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbIndexConveyor.bError" VarB="PlcTask Outputs^MAIN.fbSimCell.fbIndexConveyor.bError"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbIndexConveyor.bReady" VarB="PlcTask Outputs^MAIN.fbSimCell.fbIndexConveyor.bReady"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbIndexConveyor.bRunning" VarB="PlcTask Outputs^MAIN.fbSimCell.fbIndexConveyor.bRunning"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbIndexConveyor.fActPosition" VarB="PlcTask Outputs^MAIN.fbSimCell.fbIndexConveyor.fActPosition"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbIndexConveyor.fActVelocity" VarB="PlcTask Outputs^MAIN.fbSimCell.fbIndexConveyor.fActVelocity"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbInfeedActuator.bExtended" VarB="PlcTask Outputs^MAIN.fbSimCell.fbInfeedActuator.bExtended"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbInfeedActuator.bRetracted" VarB="PlcTask Outputs^MAIN.fbSimCell.fbInfeedActuator.bRetracted"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbInfeedConveyor.bBusy" VarB="PlcTask Outputs^MAIN.fbSimCell.fbInfeedConveyor.bBusy"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbInfeedConveyor.bError" VarB="PlcTask Outputs^MAIN.fbSimCell.fbInfeedConveyor.bError"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbInfeedConveyor.bReady" VarB="PlcTask Outputs^MAIN.fbSimCell.fbInfeedConveyor.bReady"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbInfeedConveyor.bRunning" VarB="PlcTask Outputs^MAIN.fbSimCell.fbInfeedConveyor.bRunning"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbInfeedConveyor.fActPosition" VarB="PlcTask Outputs^MAIN.fbSimCell.fbInfeedConveyor.fActPosition"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbInfeedConveyor.fActVelocity" VarB="PlcTask Outputs^MAIN.fbSimCell.fbInfeedConveyor.fActVelocity"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbOutfeedActuator.bExtended" VarB="PlcTask Outputs^MAIN.fbSimCell.fbOutfeedActuator.bExtended"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbOutfeedActuator.bRetracted" VarB="PlcTask Outputs^MAIN.fbSimCell.fbOutfeedActuator.bRetracted"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbOutfeedConveyor.bBusy" VarB="PlcTask Outputs^MAIN.fbSimCell.fbOutfeedConveyor.bBusy"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbOutfeedConveyor.bError" VarB="PlcTask Outputs^MAIN.fbSimCell.fbOutfeedConveyor.bError"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbOutfeedConveyor.bReady" VarB="PlcTask Outputs^MAIN.fbSimCell.fbOutfeedConveyor.bReady"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbOutfeedConveyor.bRunning" VarB="PlcTask Outputs^MAIN.fbSimCell.fbOutfeedConveyor.bRunning"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbOutfeedConveyor.fActPosition" VarB="PlcTask Outputs^MAIN.fbSimCell.fbOutfeedConveyor.fActPosition"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbCell.fbOutfeedConveyor.fActVelocity" VarB="PlcTask Outputs^MAIN.fbSimCell.fbOutfeedConveyor.fActVelocity"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fFillRate" VarB="PlcTask Inputs^MAIN.fbSimCell.fFillRate"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbBarcoder.bTriggerRead" VarB="PlcTask Inputs^MAIN.fbSimCell.fbSimScanner.bTriggerRead"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbCapper.bCapTrigger" VarB="PlcTask Inputs^MAIN.fbSimCell.fbSimCapper.bCapTrigger"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbCapper.bClamp" VarB="PlcTask Inputs^MAIN.fbSimCell.fbSimCapper.bClamp"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbCheckWeigher.bLift" VarB="PlcTask Inputs^MAIN.fbSimCell.fbSimWeigher.bLift"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbFiller.bFillValve" VarB="PlcTask Inputs^MAIN.fbSimCell.fbSimFiller.bFillValve"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbIndexConveyor.bJogFwdCmd" VarB="PlcTask Inputs^MAIN.fbSimCell.fbIndexConveyor.bJogFwdCmd"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbIndexConveyor.bMoveAbsCmd" VarB="PlcTask Inputs^MAIN.fbSimCell.fbIndexConveyor.bMoveAbsCmd"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbIndexConveyor.fPositionCmd" VarB="PlcTask Inputs^MAIN.fbSimCell.fbIndexConveyor.fPositionCmd"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbIndexConveyor.fVelocityCmd" VarB="PlcTask Inputs^MAIN.fbSimCell.fbIndexConveyor.fVelocityCmd"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbInfeedActuator.bExtendCmd" VarB="PlcTask Inputs^MAIN.fbSimCell.fbInfeedActuator.bExtendCmd"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbInfeedActuator.bRetractCmd" VarB="PlcTask Inputs^MAIN.fbSimCell.fbInfeedActuator.bRetractCmd"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbInfeedConveyor.bJogFwdCmd" VarB="PlcTask Inputs^MAIN.fbSimCell.fbInfeedConveyor.bJogFwdCmd"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbInfeedConveyor.bMoveAbsCmd" VarB="PlcTask Inputs^MAIN.fbSimCell.fbInfeedConveyor.bMoveAbsCmd"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbInfeedConveyor.fPositionCmd" VarB="PlcTask Inputs^MAIN.fbSimCell.fbInfeedConveyor.fPositionCmd"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbInfeedConveyor.fVelocityCmd" VarB="PlcTask Inputs^MAIN.fbSimCell.fbInfeedConveyor.fVelocityCmd"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbOutfeedActuator.bExtendCmd" VarB="PlcTask Inputs^MAIN.fbSimCell.fbOutfeedActuator.bExtendCmd"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbOutfeedActuator.bRetractCmd" VarB="PlcTask Inputs^MAIN.fbSimCell.fbOutfeedActuator.bRetractCmd"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbOutfeedConveyor.bJogFwdCmd" VarB="PlcTask Inputs^MAIN.fbSimCell.fbOutfeedConveyor.bJogFwdCmd"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbOutfeedConveyor.bMoveAbsCmd" VarB="PlcTask Inputs^MAIN.fbSimCell.fbOutfeedConveyor.bMoveAbsCmd"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbOutfeedConveyor.fPositionCmd" VarB="PlcTask Inputs^MAIN.fbSimCell.fbOutfeedConveyor.fPositionCmd"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbCell.fbOutfeedConveyor.fVelocityCmd" VarB="PlcTask Inputs^MAIN.fbSimCell.fbOutfeedConveyor.fVelocityCmd"/>
+			</OwnerB>
+		</OwnerA>
+	</Mappings>
+</TcSmProject>

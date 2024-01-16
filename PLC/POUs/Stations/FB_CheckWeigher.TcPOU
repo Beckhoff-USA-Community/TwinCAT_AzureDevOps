@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_CheckWeigher" Id="{f2b6ec40-0a7e-498d-ad24-1bc64cb8a48b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_CheckWeigher EXTENDS FB_Station
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	bLift					AT %Q* : BOOL;
+	fScaleReading			AT %I* : LREAL;
+	
+	fWeightSetpoint			: LREAL := 1000;
+	iWorkState				: DINT;
+	tmrLift					: TON;
+	tmrWeigh				: TON;
+END_VAR
+VAR CONSTANT
+	WEIGH_DB_HI				: LREAL := 1.0;
+	WEIGH_DB_LO				: LREAL := 0.2;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="DoWork" Id="{06478269-7e8f-4cf3-8ab9-628ebb68d97b}">
+      <Declaration><![CDATA[METHOD PROTECTED  DoWork : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE iWorkState OF
+	0:
+		IF pPartStatus^.bCapperStatus THEN
+			bLift := TRUE;
+			tmrLift(IN:=TRUE, PT:=T#500MS);
+			IF tmrLift.Q THEN
+				tmrLift(IN:=FALSE);
+				iWorkState := 10;
+			END_IF
+		ELSE
+			DoWork := TRUE;
+		END_IF
+		
+		
+	10:
+		tmrWeigh(IN:=TRUE, PT:=T#2S);
+		IF tmrWeigh.Q THEN
+			tmrWeigh(IN:=FALSE);
+			pPartStatus^.fActualWeightMg := fScaleReading;
+			iWorkState := 20;
+		END_IF
+		
+	20:
+		pPartStatus^.bWeightStatus := (pPartStatus^.fActualWeightMg > fWeightSetpoint - WEIGH_DB_LO)
+			AND (pPartStatus^.fActualWeightMg < fWeightSetpoint + WEIGH_DB_HI);
+		iWorkState := 30;
+		
+	30:
+		bLift := FALSE;
+		iWorkState := 0;
+		DoWork := TRUE;
+	
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FaultHandler" Id="{f883c496-e31b-4a3f-bc0d-333d136fe914}">
+      <Declaration><![CDATA[METHOD PROTECTED  FaultHandler : E_StationState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="WeightSetpoint" Id="{bcd69f3f-e46c-435d-8dc6-52ac1348307b}">
+      <Declaration><![CDATA[PROPERTY WeightSetpoint : LREAL]]></Declaration>
+      <Get Name="Get" Id="{ddfa2beb-3ddd-46f8-91ac-8f792523171f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[WeightSetpoint := fWeightSetpoint;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{6e5a6597-84b3-4881-857d-ce864c136d93}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fWeightSetpoint := WeightSetpoint;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <LineIds Name="FB_CheckWeigher">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CheckWeigher.DoWork">
+      <LineId Id="5" Count="1" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="82" Count="4" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="87" Count="1" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="65" Count="1" />
+      <LineId Id="68" Count="1" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="73" Count="1" />
+      <LineId Id="56" Count="1" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CheckWeigher.FaultHandler">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CheckWeigher.WeightSetpoint.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CheckWeigher.WeightSetpoint.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

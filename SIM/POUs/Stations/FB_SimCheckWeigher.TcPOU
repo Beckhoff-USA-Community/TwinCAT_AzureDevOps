@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_SimCheckWeigher" Id="{92bab77b-be28-48d9-9ba6-55ffa9050dd6}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SimCheckWeigher
+VAR_INPUT
+	fFillAmount					: LREAL;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	bLift						AT %I* : BOOL;
+	fScaleReading				AT %Q* : LREAL;
+	bPartPresent				AT %Q* : BOOL;
+	
+	rand						: DRAND;
+	fWeightSetpoint				: LREAL := 1000.0;
+	tmrWork						: TON;
+	iWorkMs						: DINT;
+	iState						: DINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[rand(Seed:=MAIN.Seed+13);
+
+CASE iState OF
+	0:
+		IF bLift THEN
+			iState := 10;
+		ELSE
+			fScaleReading := 0.0 + (rand.Num / 5000);
+		END_IF
+
+	10:
+		IF fScaleReading < fWeightSetpoint THEN
+			fScaleReading := fScaleReading + (fWeightSetpoint / 50) + (rand.Num * 10);
+		ELSE
+			iState := 20;
+		END_IF
+		
+	20:
+		IF bLift THEN
+			fScaleReading := fFillAmount + (rand.Num / 100);
+		ELSE
+			iState := 0;
+		END_IF
+		
+END_CASE]]></ST>
+    </Implementation>
+    <Property Name="PartPresent" Id="{0d2531d8-1940-42c4-b0c2-849dfc637b41}">
+      <Declaration><![CDATA[PROPERTY PUBLIC PartPresent : BOOL]]></Declaration>
+      <Get Name="Get" Id="{89580202-1e1c-4436-b39d-e116d591c4bc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PartPresent := bPartPresent;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{1aa9f137-4566-4a00-8fbd-3af25d42fcc4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bPartPresent := PartPresent;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <LineIds Name="FB_SimCheckWeigher">
+      <LineId Id="9" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="82" Count="1" />
+      <LineId Id="85" Count="1" />
+      <LineId Id="84" Count="0" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="91" Count="1" />
+      <LineId Id="94" Count="1" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="96" Count="0" />
+      <LineId Id="103" Count="0" />
+      <LineId Id="122" Count="0" />
+      <LineId Id="97" Count="1" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="28" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SimCheckWeigher.PartPresent.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SimCheckWeigher.PartPresent.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

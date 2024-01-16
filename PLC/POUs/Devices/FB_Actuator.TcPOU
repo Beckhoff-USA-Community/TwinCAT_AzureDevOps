@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Actuator" Id="{b60feaab-d854-40dc-b58d-c92ca4bd5a91}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Actuator IMPLEMENTS IActuator
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	bExtended			AT %I* : BOOL;
+	bRetracted			AT %I* : BOOL;
+	bExtendCmd			AT %Q* : BOOL;
+	bRetractCmd			AT %Q* : BOOL;
+	
+	iCycleState			: DINT;
+	bError				: BOOL;
+	tmrTimeout			: TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Cycle" Id="{37965100-d96c-4645-8c71-ca1df0408b13}">
+      <Declaration><![CDATA[METHOD Cycle : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE iCycleState OF
+	0:
+		IF Extend() THEN
+			iCycleState := 1;
+		END_IF
+	1:
+		IF Retract() THEN
+			iCycleState := 2;
+		END_IF
+		
+	2:
+		iCycleState := 0;
+		Cycle := TRUE;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Error" Id="{9ba52509-1d4d-4275-9de2-387c1d3da456}">
+      <Declaration><![CDATA[PROPERTY Error : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{ad289723-a406-4fec-92f9-b69f75d3f237}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Error := bError;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Extend" Id="{40a95e29-a632-41af-a987-4c935a3fa911}">
+      <Declaration><![CDATA[METHOD Extend : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bRetractCmd := FALSE;
+bExtendCmd := TRUE;
+IF bExtended THEN
+	bExtendCmd := FALSE;
+	bError := FALSE;
+	tmrTimeout(IN:=FALSE);
+	Extend := TRUE;
+ELSE
+	tmrTimeout(IN:=TRUE, PT:=T#5S);
+	IF tmrTimeout.Q THEN
+		bError := TRUE;
+	END_IF
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Extended" Id="{b8ac5087-3ff2-43a7-b584-1f32518f4381}">
+      <Declaration><![CDATA[PROPERTY Extended : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{adb61051-46e0-4181-8afd-273eaf7161cb}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Extended := bExtended;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Retract" Id="{55bc305c-9eba-4946-bab0-3b5fb897cca8}">
+      <Declaration><![CDATA[METHOD Retract : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bExtendCmd := FALSE;
+bRetractCmd := TRUE;
+IF bRetracted THEN
+	bRetractCmd := FALSE;
+	bError := FALSE;
+	tmrTimeout(IN:=FALSE);
+	Retract := TRUE;
+ELSE
+	tmrTimeout(IN:=TRUE, PT:=T#5S);
+	IF tmrTimeout.Q THEN
+		bError := TRUE;
+	END_IF
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Retracted" Id="{9945b710-2862-4e2a-92dd-863f037f83ee}">
+      <Declaration><![CDATA[PROPERTY Retracted : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{52d1f740-9588-4293-91ea-6e94a1c38ca8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Retracted := bRetracted;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <LineIds Name="FB_Actuator">
+      <LineId Id="15" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Actuator.Cycle">
+      <LineId Id="34" Count="1" />
+      <LineId Id="8" Count="3" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="28" Count="1" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="16" Count="2" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Actuator.Error.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Actuator.Extend">
+      <LineId Id="24" Count="0" />
+      <LineId Id="4" Count="0" />
+      <LineId Id="20" Count="1" />
+      <LineId Id="31" Count="1" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="26" Count="4" />
+      <LineId Id="22" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Actuator.Extended.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Actuator.Retract">
+      <LineId Id="32" Count="0" />
+      <LineId Id="28" Count="2" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="36" Count="2" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="11" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Actuator.Retracted.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

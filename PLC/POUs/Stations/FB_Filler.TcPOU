@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Filler" Id="{a24b86fb-f6bc-43a3-9935-c13b591927e3}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Filler EXTENDS FB_Station
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	fVolumeFilled			AT %I* : LREAL;
+	bFillValve				AT %Q* : BOOL;
+	
+	fFillSetpoint			: LREAL := 1000.0;
+	tmrDone					: TON;
+	iWorkState				: DINT;
+	
+	fFillDoneDb				: LREAL := 1.0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="DoWork" Id="{fe6228bc-5d46-4a75-aa6a-a80e0384878f}">
+      <Declaration><![CDATA[METHOD PROTECTED  DoWork : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE iWorkState OF
+	0:
+		IF pPartStatus^.bBarcodeStatus THEN
+			iWorkState := 10;
+			bFillValve := TRUE;
+		ELSE
+			DoWork := TRUE;
+		END_IF
+		
+		
+	10:
+		IF fVolumeFilled >= (fFillSetpoint - fFillDoneDb) THEN
+			bFillValve := FALSE;
+			pPartStatus^.bFillerStatus := TRUE;
+			iWorkState := 20;
+		END_IF
+		
+	20:
+		tmrDone(IN:=TRUE, PT:=T#500MS);
+		IF tmrDone.Q THEN
+			tmrDone(IN:=FALSE);
+			iWorkState := 0;
+			DoWork := TRUE;
+		END_IF
+		
+	
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FaultHandler" Id="{b656b010-b668-4da7-9967-48fb4b7b233d}">
+      <Declaration><![CDATA[METHOD PROTECTED  FaultHandler : E_StationState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="FillSetpoint" Id="{84362514-e06e-4784-8313-815fe6a0ffdf}">
+      <Declaration><![CDATA[PROPERTY PUBLIC FillSetpoint : LREAL]]></Declaration>
+      <Get Name="Get" Id="{8c928771-c097-43ba-a14e-88a2f7e7685d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[FillSetpoint := fFillSetpoint;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{13d587dd-2b41-42b1-961c-e5b6facc5db2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[fFillSetpoint := FillSetpoint;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <LineIds Name="FB_Filler">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Filler.DoWork">
+      <LineId Id="5" Count="1" />
+      <LineId Id="78" Count="1" />
+      <LineId Id="81" Count="2" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="69" Count="1" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Filler.FaultHandler">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Filler.FillSetpoint.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Filler.FillSetpoint.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

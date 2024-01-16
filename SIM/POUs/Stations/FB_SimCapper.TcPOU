@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_SimCapper" Id="{3ab80ab6-5b4a-46b9-ad1a-33a3418ccbd2}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SimCapper
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	bClamp						AT %I* : BOOL;
+	bCapTrigger					AT %I* : BOOL;
+	bCapDone					AT %Q* : BOOL;
+	bCapFail					AT %Q* : BOOL;
+	bPartPresent				AT %Q* : BOOL;
+	
+	rand						: DRAND;
+	iCapMs						: DINT;
+	tmrCap						: TON;
+	iState						: DINT;
+END_VAR
+VAR CONSTANT
+	CHANCE_FAIL					: LREAL := 0.01;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[rand(Seed:=MAIN.Seed+7);
+
+CASE iState OF
+	0:
+		IF bCapTrigger THEN
+			iState := 10;
+			iCapMs := 1000 + TO_DINT(rand.Num * 100);
+		ELSE
+			bCapDone := FALSE;
+			bCapFail := FALSE;
+		END_IF
+		
+	10:
+		tmrCap(IN:=TRUE, PT:=TO_TIME(iCapMs));
+		IF tmrCap.Q THEN
+			tmrCap(IN:=FALSE);
+			IF rand.Num < CHANCE_FAIL THEN
+				bCapFail := TRUE;
+			END_IF
+			bCapDone := TRUE;
+			iState := 20;
+		END_IF
+		
+	20:
+		iState := 0;
+		
+END_CASE]]></ST>
+    </Implementation>
+    <Property Name="PartPresent" Id="{efc26c2b-b625-4294-9b57-f9b9be747116}">
+      <Declaration><![CDATA[PROPERTY PUBLIC PartPresent : BOOL]]></Declaration>
+      <Get Name="Get" Id="{98a2d9a4-2be2-42de-8631-311054916242}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PartPresent := bPartPresent;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{627d8900-14c9-4717-ae1c-9b51d4fd6e3f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bPartPresent := PartPresent;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <LineIds Name="FB_SimCapper">
+      <LineId Id="9" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="113" Count="0" />
+      <LineId Id="109" Count="2" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="85" Count="0" />
+      <LineId Id="114" Count="1" />
+      <LineId Id="117" Count="4" />
+      <LineId Id="116" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="28" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SimCapper.PartPresent.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SimCapper.PartPresent.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

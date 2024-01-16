@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="E_CellState" Id="{f58d99b1-5275-47d2-acf5-137e1214b895}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_CellState :
+(
+	STOPPED := 0,
+	IDLE_WAIT := 1,
+	FEED := 2,
+	INDEX := 3
+) DINT;
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

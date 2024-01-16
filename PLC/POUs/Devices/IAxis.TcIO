@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="IAxis" Id="{f50373d0-2bcc-4cde-a5cd-da355d80cd0a}">
+    <Declaration><![CDATA[INTERFACE IAxis
+]]></Declaration>
+    <Property Name="ActPosition" Id="{3afa2b43-3b81-49e0-ac3a-8c24325398c5}">
+      <Declaration><![CDATA[PROPERTY ActPosition : LREAL]]></Declaration>
+      <Get Name="Get" Id="{5e025469-a9b7-4c3c-80ae-56b379117d3f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="ActVelocity" Id="{a4c0a5d4-e0a4-4021-98c8-68413fdb6afb}">
+      <Declaration><![CDATA[PROPERTY ActVelocity : LREAL]]></Declaration>
+      <Get Name="Get" Id="{ea813551-4554-4abd-8987-0077145e8fe1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Busy" Id="{a833f075-c09a-4a50-b5d5-763b4401a19b}">
+      <Declaration><![CDATA[PROPERTY Busy : BOOL]]></Declaration>
+      <Get Name="Get" Id="{6f1966da-2385-4d1d-ae6e-49d8f69b7f90}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Enable" Id="{6d4478c2-7b53-4c7e-b719-b4cfc5fb6626}">
+      <Declaration><![CDATA[METHOD Enable : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Enabled" Id="{4ec2658a-2505-4797-90ae-e76bd1e2d784}">
+      <Declaration><![CDATA[PROPERTY Enabled : BOOL]]></Declaration>
+      <Get Name="Get" Id="{39ca843d-a3fc-48fd-b67a-ac55456aeb4b}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Error" Id="{83027609-d25a-47ab-8c7a-4a98cd81ee81}">
+      <Declaration><![CDATA[PROPERTY Error : BOOL]]></Declaration>
+      <Get Name="Get" Id="{2b96fafe-e37a-490e-bf92-1f576a2ec4c5}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="JogFwd" Id="{16c7f9ae-a326-452d-a08c-988c3446bedf}">
+      <Declaration><![CDATA[METHOD JogFwd : BOOL
+VAR_INPUT
+	Velocity		: LREAL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="JogRev" Id="{217dedd5-cd3f-4544-a4eb-71b750b97ab5}">
+      <Declaration><![CDATA[METHOD JogRev : BOOL
+VAR_INPUT
+	Velocity		: LREAL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="MoveAbsolute" Id="{991b5d3b-2868-4465-9244-b3e85a752cc9}">
+      <Declaration><![CDATA[METHOD MoveAbsolute : BOOL
+VAR_INPUT
+	Target		: LREAL;	// target position
+	Velocity	: LREAL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Reset" Id="{e7949030-3c6e-46ca-9496-8d88a509f3e7}">
+      <Declaration><![CDATA[METHOD Reset : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetHome" Id="{3210d3df-54c4-4b9a-9fe4-8b290c1f7dc5}">
+      <Declaration><![CDATA[METHOD SetHome : BOOL
+VAR_INPUT
+	Target		: LREAL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="StopMove" Id="{17a21aa7-b8f9-48fe-a828-64857b684464}">
+      <Declaration><![CDATA[METHOD StopMove : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

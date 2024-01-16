@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Capper" Id="{1311f335-37a5-422d-8020-047ada312221}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Capper EXTENDS FB_Station
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	bClamp					AT %Q* : BOOL;
+	bCapTrigger				AT %Q* : BOOL;
+	bCapDone				AT %I* : BOOL;
+	bCapFail				AT %I* : BOOL;
+	
+	tmrClamp				: TON;
+	iWorkState				: DINT;
+END_VAR
+VAR CONSTANT
+	CLAMP_TIME				: TIME := T#500MS;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="DoWork" Id="{3806cbc9-5ff0-4ea9-9c3c-5824e30bd433}">
+      <Declaration><![CDATA[METHOD PROTECTED  DoWork : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE iWorkState OF
+	0:
+		IF pPartStatus^.bFillerStatus THEN
+			bClamp := TRUE;
+			tmrClamp(IN:=TRUE, PT:=CLAMP_TIME);
+			IF tmrClamp.Q THEN
+				tmrClamp(IN:=FALSE);
+				iWorkState := 10;
+			END_IF
+		ELSE
+			DoWork := TRUE;
+		END_IF
+		
+		
+	10:
+		bCapTrigger := TRUE;
+		IF bCapDone THEN
+			iWorkState := 20; 
+		END_IF
+		
+	20:
+		bClamp := FALSE;
+		tmrClamp(IN:=TRUE, PT:=CLAMP_TIME);
+		IF tmrClamp.Q THEN
+			tmrClamp(IN:=FALSE);
+			pPartStatus^.bCapperStatus := NOT bCapFail;
+			iWorkState := 30;
+		END_IF
+		
+	30:
+		bCapTrigger := FALSE;
+		iWorkState := 0;
+		DoWork := TRUE;
+	
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FaultHandler" Id="{16aadb32-33ab-4003-9844-ff7757fe3c89}">
+      <Declaration><![CDATA[METHOD PROTECTED  FaultHandler : E_StationState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_Capper">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Capper.DoWork">
+      <LineId Id="5" Count="1" />
+      <LineId Id="84" Count="0" />
+      <LineId Id="87" Count="4" />
+      <LineId Id="85" Count="0" />
+      <LineId Id="92" Count="1" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="60" Count="2" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="73" Count="1" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="56" Count="1" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Capper.FaultHandler">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

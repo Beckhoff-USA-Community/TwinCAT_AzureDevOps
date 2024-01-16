@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_SimActuator" Id="{241a69ff-e48a-46bd-998c-79482a295d18}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SimActuator
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	bExtended			AT %Q* : BOOL;
+	bRetracted			AT %Q* : BOOL := TRUE;
+	bExtendCmd			AT %I* : BOOL;
+	bRetractCmd			AT %I* : BOOL;
+	
+	State				: DINT;
+	tmrExtend			: TON;
+	tmrRetract			: TON;
+	iExtendMs			: DINT;
+	iRetractMs			: DINT;
+	rand				: DRAND;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[rand(Seed:=TO_INT(iExtendMs + iRetractMs));
+CASE State OF
+	0:
+		IF bExtendCmd THEN
+			iExtendMs := TO_DINT(1500 + (rand.Num * 500));
+			State := 1;
+		END_IF
+		
+		IF bRetractCmd THEN
+			iRetractMs := TO_DINT(1500 + (rand.Num * 500));
+			State := 2;
+		END_IF
+		
+	1:
+		tmrExtend(IN:=TRUE, PT:=TO_TIME(iExtendMs));
+		IF TO_DINT(tmrExtend.PT) > rand.Num * 100 THEN
+			bRetracted := FALSE;
+		END_IF
+		IF tmrExtend.Q THEN
+			bExtended := TRUE;
+			tmrExtend(IN:=FALSE);
+			State := 0;
+		END_IF
+		
+	2:
+		tmrRetract(IN:=TRUE, PT:=TO_TIME(iRetractMs));
+		IF TO_DINT(tmrRetract.PT) > rand.Num * 100 THEN
+			bExtended := FALSE;
+		END_IF
+		IF tmrRetract.Q THEN
+			bRetracted := TRUE;
+			tmrRetract(IN:=FALSE);
+			State := 0;
+		END_IF
+		
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="FB_SimActuator">
+      <LineId Id="9" Count="0" />
+      <LineId Id="23" Count="1" />
+      <LineId Id="26" Count="1" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="40" Count="2" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="32" Count="2" />
+      <LineId Id="54" Count="2" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="45" Count="1" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="58" Count="1" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="50" Count="3" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="25" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

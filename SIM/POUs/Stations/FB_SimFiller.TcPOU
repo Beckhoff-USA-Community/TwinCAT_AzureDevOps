@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_SimFiller" Id="{45f26f00-5e10-4615-86cf-ae8ecf9db752}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SimFiller
+VAR_INPUT
+	fFillRate					: LREAL;
+END_VAR
+VAR_OUTPUT
+	fFillAmount					: LREAL;
+END_VAR
+VAR
+	fVolumeFilled				AT %Q* : LREAL;
+	bFillValve					AT %I* : BOOL;
+	bPartPresent				AT %Q* : BOOL;
+	
+	rand						: DRAND;
+	iState						: DINT;
+	fFailRate					: LREAL;
+	fThresh						: LREAL := 2.875;
+	fFillSetpoint				: LREAL := 1000.0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[rand(Seed:=MAIN.Seed+17);
+
+CASE iState OF
+	0:
+		IF bFillValve THEN
+			iState := 10;
+		ELSE
+			fVolumeFilled := 0.0;
+		END_IF
+		
+	10:
+		fFillAmount := 0;
+		IF bFillValve THEN
+			fVolumeFilled := fVolumeFilled + fFillRate + rand.Num / 10;
+		ELSE
+			fFailRate := ABS(fFillRate - fThresh + 0.005) / 10;
+			fVolumeFilled := SEL(fFillRate <= fThresh, 
+				fFillSetpoint + (rand.Num * ((fFillRate + 1.0) / fThresh)), 
+				fFillSetpoint + (rand.Num * (1.0 + fFailRate))); 
+			iState := 20;
+		END_IF
+		
+	20:
+		fFillAmount := fVolumeFilled;
+		iState := 0;
+		
+END_CASE]]></ST>
+    </Implementation>
+    <Property Name="PartPresent" Id="{656e4e71-7c58-4d80-8b22-2626cce1ca51}">
+      <Declaration><![CDATA[PROPERTY PUBLIC PartPresent : BOOL]]></Declaration>
+      <Get Name="Get" Id="{654f52b7-3c96-4321-a808-af754e6b0cc1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PartPresent := bPartPresent;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{fb8932c9-e179-41be-ad35-3ae0500d456b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[bPartPresent := PartPresent;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <LineIds Name="FB_SimFiller">
+      <LineId Id="9" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="82" Count="1" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="114" Count="0" />
+      <LineId Id="137" Count="0" />
+      <LineId Id="139" Count="1" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="85" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="104" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="28" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SimFiller.PartPresent.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_SimFiller.PartPresent.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

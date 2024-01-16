@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Axis" Id="{5174d465-34a5-46fe-849e-2e264f751283}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Axis IMPLEMENTS IAxis
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	fActPosition			AT %I* : LREAL;
+	fActVelocity			AT %I* : LREAL;
+	bReady					AT %I* : BOOL;
+	bBusy					AT %I* : BOOL;
+	bError					AT %I* : BOOL;
+	bRunning				AT %I* : BOOL;
+	
+	bJogFwdCmd				AT %Q* : BOOL;
+	bMoveAbsCmd				AT %Q* : BOOL;
+	fPositionCmd			AT %Q* : LREAL;
+	fVelocityCmd			AT %Q* : LREAL;
+	
+	iMovCmdState			: DINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="ActPosition" Id="{4201ee61-4bae-4420-9906-f329da9b2eaa}">
+      <Declaration><![CDATA[PROPERTY ActPosition : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{d94d6bf1-7845-4873-9ab0-a9a6000e2001}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ActPosition := fActPosition;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="ActVelocity" Id="{45bf43e1-198c-4715-bb1a-d6a6886e76fc}">
+      <Declaration><![CDATA[PROPERTY ActVelocity : LREAL
+]]></Declaration>
+      <Get Name="Get" Id="{cb26f182-28f1-479b-b4b6-c848522e7907}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ActVelocity := fActVelocity;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Busy" Id="{795f7e9e-c293-4e15-a769-a5d43da9af34}">
+      <Declaration><![CDATA[PROPERTY Busy : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{c77461da-d17d-46bc-a1c8-c354e196da7d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Busy := bBusy;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Enable" Id="{bdc8b238-74ca-4278-ad3a-2a0c80f9cbb6}">
+      <Declaration><![CDATA[METHOD Enable : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Enabled" Id="{f3f8d52e-5df6-4243-aa25-918a9e170110}">
+      <Declaration><![CDATA[PROPERTY Enabled : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{d88da46b-61c6-47b7-b442-5182c4f2e019}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Error" Id="{841c6852-6840-4821-8142-778fe6c0d2aa}">
+      <Declaration><![CDATA[PROPERTY Error : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{34148eb9-c706-4b25-8997-490489717e3d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Error := bError;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="JogFwd" Id="{87e78a3f-8c03-4ed4-8c8a-3309978460dc}">
+      <Declaration><![CDATA[METHOD JogFwd : BOOL
+VAR_INPUT
+	Velocity	: LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fVelocityCmd := Velocity;
+bJogFwdCmd := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="JogRev" Id="{dc851cbc-856a-42a3-981c-b3912436c305}">
+      <Declaration><![CDATA[METHOD JogRev : BOOL
+VAR_INPUT
+	Velocity	: LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveAbsolute" Id="{25522c8a-7bd7-4697-8c0a-22d3b9a92e61}">
+      <Declaration><![CDATA[METHOD MoveAbsolute : BOOL
+VAR_INPUT
+	(* target position*)
+	Target		: LREAL;
+	Velocity	: LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fPositionCmd := Target;
+fVelocityCmd := Velocity;
+
+CASE iMovCmdState OF
+	0:
+		IF bReady THEN
+			iMovCmdState := 1;
+		END_IF
+	1:
+		bMoveAbsCmd := TRUE;
+		IF bBusy THEN
+			iMovCmdState := 2;
+		END_IF	
+	2:
+		IF NOT bBusy THEN
+			bMoveAbsCmd := FALSE;
+			iMovCmdState := 0;
+			MoveAbsolute := TRUE;
+		END_IF
+	
+END_CASE
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{f5a9cd22-7729-4246-9d15-881079fb27b0}">
+      <Declaration><![CDATA[METHOD Reset : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetHome" Id="{9fe7e810-3b40-4c68-944c-d24f373a3e2b}">
+      <Declaration><![CDATA[METHOD SetHome : BOOL
+VAR_INPUT
+	Target	: LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="StopMove" Id="{ac02ecb5-302e-4f6e-aacf-d73b1da7ef6a}">
+      <Declaration><![CDATA[METHOD StopMove : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bJogFwdCmd := FALSE;
+bMoveAbsCmd := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_Axis">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Axis.ActPosition.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Axis.ActVelocity.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Axis.Busy.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Axis.Enable">
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Axis.Enabled.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Axis.Error.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Axis.JogFwd">
+      <LineId Id="8" Count="0" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Axis.JogRev">
+      <LineId Id="8" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Axis.MoveAbsolute">
+      <LineId Id="61" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="52" Count="1" />
+      <LineId Id="55" Count="3" />
+      <LineId Id="63" Count="3" />
+      <LineId Id="68" Count="2" />
+      <LineId Id="72" Count="1" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="41" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Axis.Reset">
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Axis.SetHome">
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Axis.StopMove">
+      <LineId Id="4" Count="0" />
+      <LineId Id="6" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

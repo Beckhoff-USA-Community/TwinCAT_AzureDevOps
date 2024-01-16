@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="IStation" Id="{45cff2cc-58be-4c22-9fd9-11924f5790cb}">
+    <Declaration><![CDATA[INTERFACE IStation
+]]></Declaration>
+    <Method Name="Execute" Id="{671ded2a-ae12-4b2a-bae9-8a08b12af770}">
+      <Declaration><![CDATA[METHOD Execute : PVOID
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Faulted" Id="{7e549cf9-6633-4763-baf1-7c47845ee9f3}">
+      <Declaration><![CDATA[PROPERTY Faulted : BOOL]]></Declaration>
+      <Get Name="Get" Id="{ed49b174-4b58-4ed6-9fd4-695014c6d0a1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="PartPresent" Id="{f1a239e0-c577-48fa-951f-60908cbe03f7}">
+      <Declaration><![CDATA[PROPERTY PartPresent : BOOL]]></Declaration>
+      <Get Name="Get" Id="{07746833-ee55-4c16-ad1b-c5e25ca3ee49}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="PartStatus" Id="{c1e008da-d7c2-49dc-880f-9943d5db0eaa}">
+      <Declaration><![CDATA[PROPERTY PartStatus : POINTER TO ST_PartStatus]]></Declaration>
+      <Set Name="Set" Id="{7ca3bc6f-e02b-46e3-bc11-2373d67ba0f2}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Ready" Id="{333f4836-c265-40d2-9ceb-b26b41d02803}">
+      <Declaration><![CDATA[PROPERTY Ready : BOOL]]></Declaration>
+      <Get Name="Get" Id="{bb6439fd-c1c5-4364-83ad-da8044e7442a}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

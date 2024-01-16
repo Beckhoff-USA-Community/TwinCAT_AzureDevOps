@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Station" Id="{bcce9771-0d87-4ec6-bb72-01c4cc53c780}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT FB_Station IMPLEMENTS IStation
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	bPartPresent			AT %I* : BOOL;
+	bReady					: BOOL;
+	bFaulted				: BOOL;
+	bBusy					: BOOL;
+	
+	{attribute 'TcAnalytics'}
+	eState					: E_StationState;
+	pPartStatus				: POINTER TO ST_PartStatus;
+	tmrPartPresentDelay		: TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="DoWork" Id="{a9114007-4794-40b7-8bf1-b47079e93cdb}">
+      <Declaration><![CDATA[METHOD PROTECTED ABSTRACT DoWork : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Execute" Id="{86608ea1-fee3-4cc8-9b1f-741b9b520762}">
+      <Declaration><![CDATA[METHOD PUBLIC Execute : PVOID
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bReady := NOT bFaulted AND NOT bBusy;
+
+CASE eState OF
+	
+	E_StationState.IDLE_READY:
+		
+		tmrPartPresentDelay(IN:=bPartPresent, PT:=T#300MS);
+		
+		IF tmrPartPresentDelay.Q AND bReady THEN
+			eState := E_StationState.PART_PRESENT;
+		END_IF
+	
+	E_StationState.PART_PRESENT:
+	
+		bBusy := TRUE;
+		eState := E_StationState.WORKING;
+	
+	E_StationState.WORKING:
+	
+		IF DoWork() THEN
+			eState := E_StationState.WORK_COMPLETE;
+		END_IF
+		
+		IF bFaulted THEN
+			eState := E_StationState.FAULTED;
+		END_IF
+	
+	E_StationState.WORK_COMPLETE:
+		
+		bBusy := FALSE;
+		
+		IF NOT bPartPresent THEN
+			eState := E_StationState.IDLE_READY;
+		END_IF
+	
+	E_StationState.FAULTED:
+	
+		eState := FaultHandler();
+
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Faulted" Id="{d757f652-0d46-4612-b1e6-25a1bf6add09}">
+      <Declaration><![CDATA[PROPERTY Faulted : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{6fb07fbc-d770-4732-8083-344b75731878}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Faulted := bFaulted;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="FaultHandler" Id="{5df141d7-690b-4cc1-93d9-a00133bb91f7}">
+      <Declaration><![CDATA[METHOD PROTECTED ABSTRACT FaultHandler : E_StationState
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="PartPresent" Id="{579b6636-2123-4dee-9b87-9104c2304a5a}">
+      <Declaration><![CDATA[PROPERTY PartPresent : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{5c5be853-cbb1-4b5b-805c-b6c87325e873}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PartPresent := bPartPresent;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="PartStatus" Id="{1a0e0383-f783-4cae-ba2c-db885b735f4a}">
+      <Declaration><![CDATA[PROPERTY PartStatus : POINTER TO ST_PartStatus
+]]></Declaration>
+      <Set Name="Set" Id="{40ccbe83-dc3f-417e-b4d1-d461a23ea222}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[pPartStatus := PartStatus;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Ready" Id="{7deb4803-d4cd-42d8-bfaa-ce274def8db3}">
+      <Declaration><![CDATA[PROPERTY Ready : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{6cca0dd7-1af4-406d-8913-3c119b8e954b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Ready := bReady;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="State" Id="{84ece4b5-457b-44b4-8d69-43e5b7deb721}">
+      <Declaration><![CDATA[PROPERTY State : E_StationState]]></Declaration>
+      <Get Name="Get" Id="{e42d24d4-507b-4fb5-83ed-cad4d56d64bc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[State := eState;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <LineIds Name="FB_Station">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Station.DoWork">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Station.Execute">
+      <LineId Id="61" Count="1" />
+      <LineId Id="4" Count="1" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="52" Count="1" />
+      <LineId Id="18" Count="2" />
+      <LineId Id="9" Count="1" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="11" Count="1" />
+      <LineId Id="23" Count="3" />
+      <LineId Id="63" Count="3" />
+      <LineId Id="13" Count="1" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="15" Count="1" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="6" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Station.Faulted.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Station.FaultHandler">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Station.PartPresent.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Station.PartStatus.Set">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Station.Ready.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Station.State.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

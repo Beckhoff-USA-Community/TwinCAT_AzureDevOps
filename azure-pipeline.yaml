@@ -16,7 +16,7 @@ steps:
 - task: CmdLine@2
   displayName: 'Run unit tests with TcUnit-Runner'
   inputs:
-    script: '"C:\Program Files (x86)\TcUnit-Runner\LaunchTcUnit.bat" -U 5'
+    script: '"C:\Program Files (x86)\TcUnit-Runner\LaunchTcUnit.bat" -u 5 -t TestTask'
     failOnStderr: true
      
 - task: PublishTestResults@2

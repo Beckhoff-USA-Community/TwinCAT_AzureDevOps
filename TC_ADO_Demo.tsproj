@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.54">
-	<Project ProjectGUID="{20BF98A4-8B61-461B-A3F3-98EE69E38A6D}" Target64Bit="true" ShowHideConfigurations="#x106">
+	<Project ProjectGUID="{20BF98A4-8B61-461B-A3F3-98EE69E38A6D}" ShowHideConfigurations="#x106">
 		<System>
-			<Settings MaxCpus="12" NonWinCpus="1">
-				<Cpu CpuId="11"/>
+			<Settings MaxCpus="6" NonWinCpus="1" Packages="2">
+				<Cpu CpuId="5"/>
 			</Settings>
 			<Tasks>
 				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
@@ -518,6 +518,7 @@
 	</Project>
 	<Mappings>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500840205008}" Id="#x02030010"/>
+		<MappingInfo Identifier="{08502001-2041-0850-0020-500840205008}" Id="#x02030020" Watchdog="04000000040000000400000004000000"/>
 		<OwnerA Name="TIPC^PLC^PLC Instance">
 			<OwnerB Name="TIPC^SIM^SIM Instance">
 				<Link VarA="PlcTask Inputs^MAIN.fbCell.bPartPresentAtInfeed" VarB="PlcTask Outputs^MAIN.fbSimCell.bPartPresentAtInfeed"/>

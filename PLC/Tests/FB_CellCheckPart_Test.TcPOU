@@ -12,8 +12,8 @@ CheckPartBadBarcode();]]></ST>
     <Method Name="CheckPartBadBarcode" Id="{00ac122f-4718-41a9-beea-3eb9fb4aba3b}">
       <Declaration><![CDATA[METHOD PRIVATE CheckPartBadBarcode
 VAR
-	fbCell		: PLC.FB_Cell;
-	MockStatus	: PLC.ST_PartStatus;
+	fbCell		: FB_Cell;
+	MockStatus	: ST_PartStatus;
 	Expected	: BOOL := FALSE;
 	Result		: BOOL;
 END_VAR
@@ -36,8 +36,8 @@ TEST_FINISHED();]]></ST>
     <Method Name="CheckPartGood" Id="{4589c4d3-6f4d-4ca9-850a-ce7aa2ca1fe6}">
       <Declaration><![CDATA[METHOD PRIVATE CheckPartGood
 VAR
-	fbCell		: ADO_Demo_PLC.FB_Cell;
-	MockStatus	: ADO_Demo_PLC.ST_PartStatus;
+	fbCell		: FB_Cell;
+	MockStatus	: ST_PartStatus;
 	Expected	: BOOL := TRUE;
 	Result		: BOOL;
 END_VAR

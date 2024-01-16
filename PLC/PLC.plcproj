@@ -17,6 +17,9 @@
     <Implicit_Jitter_Distribution>{e7b67a30-0b98-4ad5-bbb2-2484f847aa7e}</Implicit_Jitter_Distribution>
     <LibraryReferences>{402046cc-0a7b-494f-beef-b888473f30a6}</LibraryReferences>
     <Released>false</Released>
+    <Company>Beckhoff</Company>
+    <Title>ADO_Demo_PLC</Title>
+    <ProjectVersion>0.0.1</ProjectVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DUTs\E_AutoMan.TcDUT">

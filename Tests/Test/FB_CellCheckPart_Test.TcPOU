@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_CellCheckPart_Test" Id="{914beea1-202e-4b67-bb05-8582061c407a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_CellCheckPart_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CheckPartGood();
+CheckPartBadBarcode();]]></ST>
+    </Implementation>
+    <Method Name="CheckPartBadBarcode" Id="{e93e06dc-8d24-4945-af9a-ab9e2dbce2fd}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckPartBadBarcode
+VAR
+	fbCell		: ADO_Demo_PLC.FB_Cell;
+	MockStatus	: ADO_Demo_PLC.ST_PartStatus;
+	Expected	: BOOL := FALSE;
+	Result		: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MockStatus.bBarcodeStatus := FALSE;
+MockStatus.bCapperStatus := TRUE;
+MockStatus.bFillerStatus := TRUE;
+MockStatus.bWeightStatus := TRUE;
+
+Result := fbCell.CheckPart(MockStatus);
+
+AssertEquals(Expected := Expected,
+             Actual := Result,
+             Message := 'part check mismatch');
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CheckPartGood" Id="{200cbed5-bc77-47d7-ad2e-8ab6e19818c3}">
+      <Declaration><![CDATA[METHOD PRIVATE CheckPartGood
+VAR
+	fbCell		: ADO_Demo_PLC.FB_Cell;
+	MockStatus	: ADO_Demo_PLC.ST_PartStatus;
+	Expected	: BOOL := TRUE;
+	Result		: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MockStatus.bBarcodeStatus := TRUE;
+MockStatus.bCapperStatus := TRUE;
+MockStatus.bFillerStatus := TRUE;
+MockStatus.bWeightStatus := TRUE;
+
+Result := fbCell.CheckPart(MockStatus);
+
+AssertEquals(Expected := Expected,
+             Actual := Result,
+             Message := 'part check mismatch');
+
+TEST_FINISHED();]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_CellCheckPart_Test">
+      <LineId Id="9" Count="1" />
+    </LineIds>
+    <LineIds Name="FB_CellCheckPart_Test.CheckPartBadBarcode">
+      <LineId Id="10" Count="10" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_CellCheckPart_Test.CheckPartGood">
+      <LineId Id="5" Count="0" />
+      <LineId Id="10" Count="2" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="16" Count="4" />
+      <LineId Id="15" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

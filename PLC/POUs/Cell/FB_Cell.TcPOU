@@ -72,7 +72,7 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Method Name="CheckPart" Id="{40737b5d-e3a6-42c5-9b7b-02e8083b82b0}">
-      <Declaration><![CDATA[METHOD PRIVATE CheckPart : BOOL
+      <Declaration><![CDATA[METHOD PUBLIC CheckPart : BOOL
 VAR_INPUT
 	Status			: ST_PartStatus;
 END_VAR

@@ -6,7 +6,7 @@ trigger:
 pr:
   - main  
  
-pool: 'DESKTOP-G7O4NCT'    # self-hosted agent  
+pool: 'Default'    # self-hosted agent  
  
 steps:
 

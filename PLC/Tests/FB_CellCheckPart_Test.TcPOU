@@ -19,7 +19,9 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[MockStatus.bBarcodeStatus := FALSE;
+        <ST><![CDATA[TEST('CheckPartBarcodeFail');
+
+MockStatus.bBarcodeStatus := FALSE;
 MockStatus.bCapperStatus := TRUE;
 MockStatus.bFillerStatus := TRUE;
 MockStatus.bWeightStatus := TRUE;
@@ -43,7 +45,9 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[MockStatus.bBarcodeStatus := TRUE;
+        <ST><![CDATA[TEST('CheckPartGood');
+
+MockStatus.bBarcodeStatus := TRUE;
 MockStatus.bCapperStatus := TRUE;
 MockStatus.bFillerStatus := TRUE;
 MockStatus.bWeightStatus := TRUE;
@@ -61,10 +65,12 @@ TEST_FINISHED();]]></ST>
       <LineId Id="9" Count="1" />
     </LineIds>
     <LineIds Name="FB_CellCheckPart_Test.CheckPartBadBarcode">
+      <LineId Id="21" Count="1" />
       <LineId Id="10" Count="10" />
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="FB_CellCheckPart_Test.CheckPartGood">
+      <LineId Id="28" Count="1" />
       <LineId Id="5" Count="0" />
       <LineId Id="10" Count="2" />
       <LineId Id="14" Count="0" />

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="FB_CellCheckPart_Test" Id="{914beea1-202e-4b67-bb05-8582061c407a}" SpecialFunc="None">
+  <POU Name="FB_CellCheckPart_Test" Id="{5d8408a8-2a16-4833-8353-0d244cf7fe20}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_CellCheckPart_Test EXTENDS TcUnit.FB_TestSuite
 VAR
 END_VAR
@@ -9,11 +9,11 @@ END_VAR
       <ST><![CDATA[CheckPartGood();
 CheckPartBadBarcode();]]></ST>
     </Implementation>
-    <Method Name="CheckPartBadBarcode" Id="{e93e06dc-8d24-4945-af9a-ab9e2dbce2fd}">
+    <Method Name="CheckPartBadBarcode" Id="{00ac122f-4718-41a9-beea-3eb9fb4aba3b}">
       <Declaration><![CDATA[METHOD PRIVATE CheckPartBadBarcode
 VAR
-	fbCell		: ADO_Demo_PLC.FB_Cell;
-	MockStatus	: ADO_Demo_PLC.ST_PartStatus;
+	fbCell		: PLC.FB_Cell;
+	MockStatus	: PLC.ST_PartStatus;
 	Expected	: BOOL := FALSE;
 	Result		: BOOL;
 END_VAR
@@ -33,7 +33,7 @@ AssertEquals(Expected := Expected,
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="CheckPartGood" Id="{200cbed5-bc77-47d7-ad2e-8ab6e19818c3}">
+    <Method Name="CheckPartGood" Id="{4589c4d3-6f4d-4ca9-850a-ce7aa2ca1fe6}">
       <Declaration><![CDATA[METHOD PRIVATE CheckPartGood
 VAR
 	fbCell		: ADO_Demo_PLC.FB_Cell;

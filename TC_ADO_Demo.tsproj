@@ -15,7 +15,7 @@
 			</Tasks>
 		</System>
 		<Plc>
-			<Project Disabled="true" GUID="{A7710401-C0B0-4CA5-AF33-91A2C35CCB11}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+			<Project GUID="{A7710401-C0B0-4CA5-AF33-91A2C35CCB11}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
 				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="PLC\PLC.tmc" TmcHash="{48788063-F348-58D0-AE4A-F5BB89245A6F}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
@@ -513,26 +513,6 @@
 					</Contexts>
 					<TaskPouOids>
 						<TaskPouOid Prio="20" OTCID="#x08502041"/>
-					</TaskPouOids>
-				</Instance>
-			</Project>
-			<Project GUID="{C2752590-E168-40B0-A585-75D74089345F}" Name="Tests" PrjFilePath="Tests\Tests.plcproj" TmcFilePath="Tests\Tests.tmc" ReloadTmc="true" AmsPort="853" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502080" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcHash="{77D4B591-19D1-81EF-AF32-B7F3175FEB2E}">
-					<Name>Tests Instance</Name>
-					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
-					<Contexts>
-						<Context>
-							<Id>0</Id>
-							<Name>PlcTask</Name>
-							<ManualConfig>
-								<OTCID>#x02010040</OTCID>
-							</ManualConfig>
-							<Priority>21</Priority>
-							<CycleTime>10000000</CycleTime>
-						</Context>
-					</Contexts>
-					<TaskPouOids>
-						<TaskPouOid Prio="21" OTCID="#x08502081"/>
 					</TaskPouOids>
 				</Instance>
 			</Project>

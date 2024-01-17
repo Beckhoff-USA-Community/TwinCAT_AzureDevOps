@@ -7,7 +7,8 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[CheckPartGood();
-CheckPartBadBarcode();]]></ST>
+CheckPartBadBarcode();
+CheckPartCapperFail();]]></ST>
     </Implementation>
     <Method Name="CheckPartBadBarcode" Id="{00ac122f-4718-41a9-beea-3eb9fb4aba3b}">
       <Declaration><![CDATA[METHOD PRIVATE CheckPartBadBarcode
@@ -89,6 +90,7 @@ TEST_FINISHED();]]></ST>
     </Method>
     <LineIds Name="FB_CellCheckPart_Test">
       <LineId Id="9" Count="1" />
+      <LineId Id="14" Count="0" />
     </LineIds>
     <LineIds Name="FB_CellCheckPart_Test.CheckPartBadBarcode">
       <LineId Id="21" Count="1" />

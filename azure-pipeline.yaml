@@ -1,27 +1,27 @@
 # Demo CI workflow with TcUnit-Runner
-name: TcUnit-Runner  
+name: MSTest-Runner  
  
-trigger:
-  - TcUnit
-pr:
-  - TcUnit
+#trigger:
+#  - TcUnit
+#pr:
+#  - TcUnit
  
-pool: 'Default'    # self-hosted agent  
+#pool: 'Default'    # self-hosted agent  
  
-steps:
+#steps:
 
-- checkout: self
-  displayName: 'Checkout repository'
+#- checkout: self
+#  displayName: 'Checkout repository'
 
-- task: CmdLine@2
-  displayName: 'Run unit tests with TcUnit-Runner'
-  inputs:
-    script: '"C:\Program Files (x86)\TcUnit-Runner\LaunchTcUnit.bat" -u 5'
-    failOnStderr: true
+#- task: CmdLine@2
+#  displayName: 'Run unit tests with TcUnit-Runner'
+#  inputs:
+#    script: '"C:\Program Files (x86)\TcUnit-Runner\LaunchTcUnit.bat" -u 5'
+#    failOnStderr: true
      
-- task: PublishTestResults@2
-  displayName: Publish TcUnit results
-  condition: or(succeeded(),failed())     
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TcUnit_xUnit_results.xml'
+#- task: PublishTestResults@2
+#  displayName: Publish TcUnit results
+#  condition: or(succeeded(),failed())     
+#  inputs:
+#    testResultsFormat: 'JUnit'
+#    testResultsFiles: '**/TcUnit_xUnit_results.xml'

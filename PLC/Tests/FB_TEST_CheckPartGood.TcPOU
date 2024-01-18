@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_TEST_CheckPartGood" Id="{5db17b90-6099-47d9-989c-c5b0fd1881b9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_TEST_CheckPartGood EXTENDS FB_Test
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Execute" Id="{3f0f40f1-6564-4c24-b10b-2596e7cc6c4e}">
+      <Declaration><![CDATA[METHOD Execute : BOOL
+VAR
+	MockStatus		: ST_PartStatus;
+	fbCell			: FB_Cell;
+	testExpected	: BOOL := TRUE;
+	testResult		: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MockStatus.bBarcodeStatus := TRUE;
+MockStatus.bCapperStatus := TRUE;
+MockStatus.bFillerStatus := TRUE;
+MockStatus.bWeightStatus := TRUE;
+
+testResult := fbCell.CheckPart(MockStatus);
+
+Execute := AssertEquals(testExpected, testResult, 'part status value mismatch');]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_TEST_CheckPartGood">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_TEST_CheckPartGood.Execute">
+      <LineId Id="17" Count="6" />
+      <LineId Id="13" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

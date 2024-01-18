@@ -79,7 +79,10 @@
     <Compile Include="POUs\Stations\IStation.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\FB_CellCheckPart_Test.TcPOU">
+    <Compile Include="Tests\FB_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tests\FB_TEST_CheckPartGood.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\PRG_TEST.TcPOU">
@@ -107,9 +110,6 @@
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
-    </PlaceholderReference>
-    <PlaceholderReference Include="TcUnit">
-      <DefaultResolution>TcUnit, * (www.tcunit.org)</DefaultResolution>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>

@@ -3,11 +3,11 @@
   <POU Name="PRG_TEST" Id="{d8ef3780-da63-4f67-b013-b5f69f0f0425}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_TEST
 VAR
-	fbCheckPartTest		: FB_CellCheckPart_Test;
+	fbCheckPartTest		: FB_TEST_CheckPartGood(sName:= 'CheckPartGood');
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[TcUnit.RUN();]]></ST>
+      <ST><![CDATA[]]></ST>
     </Implementation>
     <LineIds Name="PRG_TEST">
       <LineId Id="5" Count="0" />

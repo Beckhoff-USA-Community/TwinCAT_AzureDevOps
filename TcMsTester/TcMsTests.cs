@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TwinCAT.Ads;
 
 namespace TcMsTester
 {
@@ -13,6 +14,18 @@ namespace TcMsTester
         {
             // (AI): Load VS solution; build, activate and run PLC
             // (ADS): Establish ADS connection, get all tests
+            using (var session = new AdsSession(new AmsNetId("127.0.0.1.1.1"), 851))
+            {
+                session.Connect();
+                if (session.IsConnected)
+                {
+                    session.Settings.SymbolLoader.SymbolsLoadMode = TwinCAT.SymbolsLoadMode.VirtualTree;
+                    var types = session.SymbolServer.DataTypes;
+                    var symbols = session.SymbolServer.Symbols;
+                }
+
+                session.Disconnect();
+            }
         }
 
         [ClassCleanup]

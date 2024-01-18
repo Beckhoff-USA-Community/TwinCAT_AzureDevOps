@@ -21,11 +21,15 @@ END_VAR
         <ST><![CDATA[MockStatus.bBarcodeStatus := TRUE;
 MockStatus.bCapperStatus := TRUE;
 MockStatus.bFillerStatus := TRUE;
-MockStatus.bWeightStatus := TRUE;
+MockStatus.bWeightStatus := FALSE;
 
 testResult := fbCell.CheckPart(MockStatus);
 
-Execute := AssertEquals(testExpected, testResult, 'part status value mismatch');]]></ST>
+Execute := AssertEquals(
+	testExpected, 
+	testResult, 
+	'Part status fail.'
+);]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="FB_TEST_CheckPartGood">
@@ -34,6 +38,7 @@ Execute := AssertEquals(testExpected, testResult, 'part status value mismatch');
     <LineIds Name="FB_TEST_CheckPartGood.Execute">
       <LineId Id="17" Count="6" />
       <LineId Id="13" Count="0" />
+      <LineId Id="31" Count="3" />
     </LineIds>
   </POU>
 </TcPlcObject>

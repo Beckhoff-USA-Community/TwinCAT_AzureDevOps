@@ -85,6 +85,9 @@
     <Compile Include="Tests\FB_TEST_CheckPartGood.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tests\ITest.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tests\PRG_TEST.TcPOU">
       <SubType>Code</SubType>
     </Compile>

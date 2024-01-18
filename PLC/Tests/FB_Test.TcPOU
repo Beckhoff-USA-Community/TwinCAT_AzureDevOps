@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="FB_Test" Id="{8831bd5e-bd34-44b6-83a6-6d659c4588f7}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT FB_Test
+    <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT FB_Test IMPLEMENTS ITest
 VAR
-	Name			: STRING;
-	Message			: STRING[255];
+	_name			: STRING;
+	_message		: STRING[255];
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -15,18 +15,23 @@ END_VAR
 VAR_INPUT
 	expected		: ANY;
 	result			: ANY;
-	message			: STRING[255];
+	failmsg			: STRING[255];
+END_VAR
+VAR
+	sExp, sRes		: STRING;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF (expected.diSize <> result.diSize) THEN
-	Message := 'Test error: expected value type mismatch';
+	_message := 'Test error: expected value type mismatch';
 	AssertEquals := FALSE;
 	RETURN;
 END_IF
 
 IF (Expected.pValue^ <> Result.pValue^) THEN
-	Message := message;
+	sExp := CONCAT(' Expected: ', TO_STRING(expected.pValue^));
+	sRes := CONCAT(' Result: ', TO_STRING(result.pValue^));
+	_message := CONCAT(CONCAT(failmsg, sExp), sRes);
 	AssertEquals := FALSE;
 ELSE
 	AssertEquals := TRUE;
@@ -46,15 +51,41 @@ END_VAR
     <Method Name="FB_init" Id="{5da565e2-8a36-4cb2-a7c8-234d759f9b2c}">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
-	bInitRetains 	: BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
-	bInCopyCode 	: BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-	sName			: STRING;
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	sName : STRING;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Name := sName;]]></ST>
+        <ST><![CDATA[_name := sName;]]></ST>
       </Implementation>
     </Method>
+    <Property Name="Message" Id="{a709b7be-4f75-4801-b015-50eb314430df}">
+      <Declaration><![CDATA[{attribute ‘monitoring’ := ‘call’}
+PROPERTY PUBLIC Message : STRING(255)
+]]></Declaration>
+      <Get Name="Get" Id="{5c414332-42b2-45f0-85a8-b658be172896}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Message := _message;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Name" Id="{b5b974e6-5d92-4d7e-965e-971dd3c7cf74}">
+      <Declaration><![CDATA[{attribute ‘monitoring’ := ‘call’}
+PROPERTY PUBLIC Name : STRING
+]]></Declaration>
+      <Get Name="Get" Id="{f6d5d1b3-9f88-44e2-a9e2-69032c9fc677}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Name := _name;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <LineIds Name="FB_Test">
       <LineId Id="9" Count="0" />
     </LineIds>
@@ -65,6 +96,8 @@ END_VAR
       <LineId Id="18" Count="0" />
       <LineId Id="16" Count="0" />
       <LineId Id="9" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="32" Count="0" />
       <LineId Id="11" Count="0" />
       <LineId Id="14" Count="0" />
       <LineId Id="12" Count="1" />
@@ -75,6 +108,12 @@ END_VAR
     </LineIds>
     <LineIds Name="FB_Test.FB_init">
       <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Test.Message.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Test.Name.Get">
+      <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -1,75 +1,54 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TwinCAT.Ads;
+
 
 namespace TcMsTester
 {
     [TestClass]
     public class TcMsTests
     {
+        static TcTestProvider testProvider;
+
         [ClassInitialize]
         public static void TestFixtureSetup(TestContext context)
         {
             // (AI): Load VS solution; build, activate and run PLC
             // (ADS): Establish ADS connection, get all tests
-            using (var session = new AdsSession(new AmsNetId("127.0.0.1.1.1"), 851))
-            {
-                session.Connect();
-                if (session.IsConnected)
-                {
-                    session.Settings.SymbolLoader.SymbolsLoadMode = TwinCAT.SymbolsLoadMode.VirtualTree;
-                    var types = session.SymbolServer.DataTypes;
-                    var symbols = session.SymbolServer.Symbols;
-                }
-
-                session.Disconnect();
-            }
+            testProvider = new TcTestProvider("39.87.174.29.1.1");
         }
 
         [ClassCleanup]
         public static void TestFixtureTearDown()
         {
             // (ADS): Close ADS connection
+            testProvider?.Dispose();
+
             // (AI): Set to Config mode; close VS
         }
 
-        [TestInitialize]
-        public void Init()
-        {
-            Console.WriteLine("Before each test");
-        }
-
-        public static IEnumerable<object[]> AdditionData
+        public static IEnumerable<object[]> TcTestData
         {
             get
             {
-                return new[]
-                {
-                    new object[] { 1, 1, 2 },
-                    new object[] { 2, 2, 4 },
-                    new object[] { 3, 3, 6 }
-                };
+                var tests = testProvider.GetTestInstances();
+                foreach (var t in tests)
+                    yield return new object[] { t };
             }
         }
 
         [TestMethod]
-        [DynamicData(nameof(AdditionData), DynamicDataDisplayName = nameof(GetCustomDynamicDataDisplayName))]
-        public void AddIntegers_FromDynamicDataTest(int x, int y, int expected)
+        [DynamicData(nameof(TcTestData), DynamicDataDisplayName = nameof(TcRpcTestName))]
+        public void TcMsTest_FromRcp(object testData)
         {
-            int actual = x + y;
-
-            Assert.AreEqual(expected, actual,
-                "x:<{0}> y:<{1}>",
-                new object[] { x, y });
-
-            Console.WriteLine("Test Results");
+            Assert.IsTrue((testData as TcTestInstance).Result, (testData as TcTestInstance).Message);
         }
 
-        public static string GetCustomDynamicDataDisplayName(MethodInfo methodInfo, object[] data)
+        public static string TcRpcTestName(MethodInfo methodInfo, object[] data)
         {
-            return string.Format("DynamicDataTestMethod {0} with {1} parameters", methodInfo.Name, data.Length);
+            return string.Format("Test: {0} ran via RPC", (data[0] as TcTestInstance).Name);
         }
     }
 }

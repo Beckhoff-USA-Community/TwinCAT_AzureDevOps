@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="ITest" Id="{863de611-8c69-429c-b9f7-38b8134fde48}">
+    <Declaration><![CDATA[INTERFACE ITest
+]]></Declaration>
+    <Method Name="Execute" Id="{0b8eec86-751b-4170-a607-88531178fdee}">
+      <Declaration><![CDATA[METHOD Execute : ST_TestResults
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

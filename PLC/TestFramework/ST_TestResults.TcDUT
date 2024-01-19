@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="ST_TestResults" Id="{4a1d78c1-af95-4cdd-9c7b-4f31ca10f1fb}">
+    <Declaration><![CDATA[TYPE ST_TestResults :
+STRUCT
+	Result		: BOOL;
+	Message		: STRING(255);
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

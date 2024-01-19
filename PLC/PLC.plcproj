@@ -79,13 +79,19 @@
     <Compile Include="POUs\Stations\IStation.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\FB_Test.TcPOU">
+    <Compile Include="TestFramework\FB_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestFramework\ITest.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestFramework\ST_TestResults.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\FB_TEST_CheckPartGood.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tests\ITest.TcIO">
+    <Compile Include="Tests\FB_TEST_CheckPartCapperFail.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tests\PRG_TEST.TcPOU">
@@ -94,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
+    <Folder Include="TestFramework" />
     <Folder Include="Tests" />
     <Folder Include="POUs\Devices" />
     <Folder Include="POUs\Cell" />

@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="FB_TEST_CheckPartGood" Id="{5db17b90-6099-47d9-989c-c5b0fd1881b9}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_TEST_CheckPartGood EXTENDS FB_Test
+  <POU Name="FB_TEST_CheckPartCapperFail" Id="{2c821e1b-9a43-4664-ad77-e4e71fe3d5a1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_TEST_CheckPartCapperFail EXTENDS FB_Test
 VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Execute" Id="{3f0f40f1-6564-4c24-b10b-2596e7cc6c4e}">
+    <Method Name="Execute" Id="{6e443ba0-a0ea-4732-bae1-232a01610c9c}">
       <Declaration><![CDATA[METHOD Execute : ST_TestResults
 VAR
 	MockStatus		: ST_PartStatus;
@@ -19,11 +19,11 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[MockStatus.bBarcodeStatus := TRUE;
-MockStatus.bCapperStatus := TRUE;
+MockStatus.bCapperStatus := FALSE;
 MockStatus.bFillerStatus := TRUE;
 MockStatus.bWeightStatus := TRUE;
 
-testExpected := TRUE;
+testExpected := FALSE;
 testResult := fbCell.CheckPart(MockStatus);
 
 Execute := AssertEquals(
@@ -33,10 +33,10 @@ Execute := AssertEquals(
 );]]></ST>
       </Implementation>
     </Method>
-    <LineIds Name="FB_TEST_CheckPartGood">
+    <LineIds Name="FB_TEST_CheckPartCapperFail">
       <LineId Id="9" Count="0" />
     </LineIds>
-    <LineIds Name="FB_TEST_CheckPartGood.Execute">
+    <LineIds Name="FB_TEST_CheckPartCapperFail.Execute">
       <LineId Id="17" Count="3" />
       <LineId Id="42" Count="0" />
       <LineId Id="21" Count="2" />

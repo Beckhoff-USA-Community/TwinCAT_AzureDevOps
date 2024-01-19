@@ -3,7 +3,8 @@
   <POU Name="PRG_TEST" Id="{d8ef3780-da63-4f67-b013-b5f69f0f0425}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PRG_TEST
 VAR
-	fbCheckPartTest		: FB_TEST_CheckPartGood(sName:= 'CheckPartGood');
+	fbCheckPartGood				: FB_TEST_CheckPartGood;
+	fbCheckPartCapperFail		: FB_TEST_CheckPartCapperFail;
 END_VAR
 ]]></Declaration>
     <Implementation>

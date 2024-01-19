@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Test" Id="{8831bd5e-bd34-44b6-83a6-6d659c4588f7}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT FB_Test IMPLEMENTS ITest
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AssertEquals" Id="{b7f9f968-56cb-477a-b18f-fd7d7ae6de0b}">
+      <Declaration><![CDATA[METHOD PROTECTED AssertEquals : ST_TestResults
+VAR_INPUT
+	expected		: ANY;
+	result			: ANY;
+	failmsg			: STRING(255);
+END_VAR
+VAR
+	sExp, sRes		: STRING;
+	results			: ST_TestResults;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (expected.diSize <> result.diSize) THEN
+	results.Message := 'Test error: expected value type mismatch';
+	results.Result := FALSE;
+	AssertEquals := results;
+	RETURN;
+END_IF
+
+IF (Expected.pValue^ <> Result.pValue^) THEN
+	sExp := CONCAT(' Expected: ', TO_STRING(expected.pValue^));
+	sRes := CONCAT(' Result: ', TO_STRING(result.pValue^));
+	results.Message := CONCAT(CONCAT(failmsg, sExp), sRes);
+	results.Result := FALSE;
+	AssertEquals := results;
+ELSE
+	results.Result := TRUE;
+	AssertEquals := results;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Execute" Id="{935cc836-92fd-4164-acc4-799697454b33}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD Execute : ST_TestResults;
+VAR
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_Test">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Test.AssertEquals">
+      <LineId Id="15" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="19" Count="1" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="10" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Test.Execute">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

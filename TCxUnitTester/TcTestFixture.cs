@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TwinCAT.Ads;
 using TwinCAT.Ads.TypeSystem;
 
@@ -12,14 +10,11 @@ namespace TCxUnitTester
     {
         private AdsClient client;
 
-        static readonly string amsNetId = "39.87.174.29.1.1";
+        static readonly string amsNetId = "127.0.0.1.1.1";
         static readonly int port = 851;
 
         public TcTestFixture()
         {
-            // (AI): Load VS solution; build, activate and run PLC
-
-            // (ADS): Establish ADS connection
             client = new AdsClient();
             client.Connect(new AmsNetId(amsNetId), port);
         }

@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4BEB1511-4D24-4405-9D48-B925443C4A67}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		azure-pipeline.yaml = azure-pipeline.yaml
 		tc_build_run.ps1 = tc_build_run.ps1
 	EndProjectSection
 EndProject

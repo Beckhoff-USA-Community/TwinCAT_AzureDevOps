@@ -1,0 +1,27 @@
+# Demo CI workflow with C# tests
+name: MSTest-Runner 
+ 
+trigger:
+  - MSTest
+pr:
+  - MSTest
+ 
+pool: 'Default'    # self-hosted agent  
+ 
+steps:
+
+- checkout: self
+  displayName: 'Checkout repository'
+
+- task: CmdLine@2
+  displayName: 'Run unit tests with TcUnit-Runner'
+  inputs:
+    script: '"C:\Program Files (x86)\TcUnit-Runner\LaunchTcUnit.bat" -u 5'
+    failOnStderr: true
+     
+- task: PublishTestResults@2
+  displayName: Publish TcUnit results
+  condition: or(succeeded(),failed())     
+  inputs:
+    testResultsFormat: 'xUnit'
+    testResultsFiles: '**/TcUnit_xUnit_results.xml'

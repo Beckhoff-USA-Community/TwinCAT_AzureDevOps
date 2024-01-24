@@ -4,7 +4,7 @@
 ##  - TwinCAT XAE
 
 # instantiate DTE object - this is the Visual Studio automation COM library
-$dte = new-object -com "VisualStudio.DTE"
+$dte = new-object -com "VisualStudio.DTE.16.0"
 # suppress VS interface
 $dte.SuppressUI = $true
 

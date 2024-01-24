@@ -16,7 +16,7 @@ steps:
 - task: PowerShell@2
   displayName: 'Build, activate and run script'
   inputs:
-    script: './tc_build_run.ps1'
+    filePath: './tc_build_run.ps1'
     failOnStderr: true
 
 - task: DotNetCoreCLI@2

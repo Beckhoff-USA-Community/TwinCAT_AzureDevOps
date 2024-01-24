@@ -11,6 +11,7 @@ $dte.SuppressUI = $true
 # open solution file
 $sln = $dte.Solution
 echo "Opening solution in VS (background)..."
+echo "$pwd"
 $sln.Open("$pwd\TC_ADO_Demo_PLC.sln")
 
 #### build options ###

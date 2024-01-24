@@ -5,6 +5,8 @@
 
 # instantiate DTE object - this is the Visual Studio automation COM library
 $dte = new-object -com "VisualStudio.DTE.16.0"
+Start-Sleep 1
+
 # suppress VS interface
 $dte.SuppressUI = $true
 
@@ -24,13 +26,18 @@ $systemProject = $sln.Projects.Item(1)
 $buildConfig = "Release|TwinCAT RT (x64)"
 
 # build specific project
+echo "Building TwinCAT project"
 $sln.SolutionBuild.BuildProject($buildConfig, $systemProject.FullName, $true)
 
 # set run mode
 $systemManager = $systemProject.Object
+
+echo "Activating Configuration"
 $systemManager.ActivateConfiguration()
+
+echo "Restarting TwinCAT runtime"
 $systemManager.StartRestartTwinCAT()
 
 # close VS
-echo "Quitting VS (background)..."
+echo "Exiting VS..."
 $dte.Quit()

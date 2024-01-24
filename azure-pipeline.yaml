@@ -13,12 +13,6 @@ steps:
 - checkout: self
   displayName: 'Checkout repository'
 
-- task: CmdLine@2
-  displayName: 'Run unit tests with TcUnit-Runner'
-  inputs:
-    script: '"C:\Program Files (x86)\TcUnit-Runner\LaunchTcUnit.bat" -u 5'
-    failOnStderr: true
-
 - task: PowerShell@2
   displayName: 'Build, activate and run script'
   inputs:

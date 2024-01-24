@@ -5,6 +5,7 @@
 VAR
 	fbCheckPartGood				: FB_TEST_CheckPartGood;
 	fbCheckPartCapperFail		: FB_TEST_CheckPartCapperFail;
+	fbCheckPartBarcodeFail		: FB_TEST_CheckPartBarcodeFail;
 END_VAR
 ]]></Declaration>
     <Implementation>

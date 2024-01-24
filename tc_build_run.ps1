@@ -9,8 +9,10 @@ $dte = new-object -com "VisualStudio.DTE.16.0"
 $dte.SuppressUI = $true
 
 # open solution file
+$slnPath = "$pwd\TC_ADO_Demo_PLC.sln"
 $sln = $dte.Solution
-echo "Opening solution in VS (background)..."
+
+echo "Opening PLC solution at $slnPath (in background)"
 $sln.Open("$pwd\TC_ADO_Demo_PLC.sln")
 
 #### build options ###

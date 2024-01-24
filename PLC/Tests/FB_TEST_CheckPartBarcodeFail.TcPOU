@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_TEST_CheckPartBarcodeFail" Id="{8b3115ad-292c-4bb6-86be-84e7df04e518}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_TEST_CheckPartBarcodeFail EXTENDS FB_Test
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Execute" Id="{2f575b9c-bd0e-4ea2-922e-4f5ad0595180}">
+      <Declaration><![CDATA[METHOD Execute : ST_TestResults
+VAR
+	MockStatus		: ST_PartStatus;
+	fbCell			: FB_Cell;
+	testExpected	: BOOL;
+	testResult		: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MockStatus.bBarcodeStatus := FALSE;
+MockStatus.bCapperStatus := TRUE;
+MockStatus.bFillerStatus := TRUE;
+MockStatus.bWeightStatus := TRUE;
+
+testExpected := FALSE;
+testResult := fbCell.CheckPart(MockStatus);
+
+Execute := AssertEquals(
+	testExpected, 
+	testResult, 
+	'Part status fail.'
+);]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_TEST_CheckPartBarcodeFail">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_TEST_CheckPartBarcodeFail.Execute">
+      <LineId Id="17" Count="3" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="21" Count="2" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="31" Count="3" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -13,7 +13,7 @@ $slnPath = "$pwd\TC_ADO_Demo_PLC.sln"
 $sln = $dte.Solution
 
 echo "Opening PLC solution at $slnPath (in background)"
-$sln.Open("$pwd\TC_ADO_Demo_PLC.sln")
+$sln.Open($slnPath)
 
 #### build options ###
 

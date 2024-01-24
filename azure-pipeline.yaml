@@ -18,10 +18,14 @@ steps:
   inputs:
     script: '"C:\Program Files (x86)\TcUnit-Runner\LaunchTcUnit.bat" -u 5'
     failOnStderr: true
-     
-- task: PublishTestResults@2
-  displayName: Publish TcUnit results
-  condition: or(succeeded(),failed())     
+
+- task: PowerShell@2
+  displayName: 'Build, activate and run script'
   inputs:
-    testResultsFormat: 'xUnit'
-    testResultsFiles: '**/TcUnit_xUnit_results.xml'
+    script: './tc_build_run.ps1'
+    failOnStderr: true
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: test
+    projects: './TCxUnitTester/*.csproj'

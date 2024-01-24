@@ -16,6 +16,7 @@ $sln = $dte.Solution
 
 echo "Opening PLC solution at $slnPath (in background)"
 $sln.Open($slnPath)
+Start-Sleep 5
 
 #### build options ###
 

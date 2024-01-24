@@ -22,4 +22,4 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: test
-    projects: './TCxUnitTester/*.csproj'
+    projects: './TCxUnitTester/TCxUnitTester.csproj'

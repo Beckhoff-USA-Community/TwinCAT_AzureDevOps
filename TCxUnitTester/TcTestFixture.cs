@@ -35,16 +35,19 @@ namespace TCxUnitTester
 
             session.Settings.SymbolLoader.SymbolsLoadMode = TwinCAT.SymbolsLoadMode.Flat;
 
-            return session.SymbolServer.Symbols
+            var testSymbols = session.SymbolServer.Symbols
                 .Where(s => s.DataType is StructType &&
                     (s.DataType as StructType).InterfaceImplementationNames.Contains(testInterfaceName))
                 .Select(x => x.InstancePath)
                 .ToList();
+
+            session.Disconnect();
+            return testSymbols;
         }
 
         public void Dispose()
         {
-            client?.Dispose();
+            client?.Disconnect();
         }
     }
 }

@@ -20,7 +20,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[MockStatus.bBarcodeStatus := TRUE;
 MockStatus.bCapperStatus := TRUE;
-MockStatus.bFillerStatus := TRUE;
+MockStatus.bFillerStatus := FALSE;
 MockStatus.bWeightStatus := TRUE;
 
 testExpected := FALSE;

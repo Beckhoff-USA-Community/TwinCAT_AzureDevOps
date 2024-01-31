@@ -27,22 +27,21 @@ namespace TCxUnitTester
 
         public static IReadOnlyCollection<string> GetTestInstances(string testInterfaceName = "ITest")
         {
-            var session = new AdsSession(new AmsNetId(amsNetId), port);
-            session.Connect();
+            using (var session = new AdsSession(new AmsNetId(amsNetId), port))
+            {
+                session.Connect();
 
-            if (!session.IsConnected)
-                return Enumerable.Empty<string>().ToList();
+                if (!session.IsConnected)
+                    throw new Exception("ADS session failed to connect.");
 
-            session.Settings.SymbolLoader.SymbolsLoadMode = TwinCAT.SymbolsLoadMode.Flat;
+                session.Settings.SymbolLoader.SymbolsLoadMode = TwinCAT.SymbolsLoadMode.Flat;
 
-            var testSymbols = session.SymbolServer.Symbols
-                .Where(s => s.DataType is StructType &&
-                    (s.DataType as StructType).InterfaceImplementationNames.Contains(testInterfaceName))
-                .Select(x => x.InstancePath)
-                .ToList();
-
-            session.Disconnect();
-            return testSymbols;
+                return session.SymbolServer.Symbols
+                    .Where(s => s.DataType is StructType &&
+                        (s.DataType as StructType).InterfaceImplementationNames.Contains(testInterfaceName))
+                    .Select(x => x.InstancePath)
+                    .ToList();
+            }
         }
 
         public void Dispose()

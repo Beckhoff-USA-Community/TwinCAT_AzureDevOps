@@ -49,6 +49,7 @@ namespace TCxUnitTester
         public void Dispose()
         {
             client?.Disconnect();
+            client?.Dispose();
         }
     }
 }

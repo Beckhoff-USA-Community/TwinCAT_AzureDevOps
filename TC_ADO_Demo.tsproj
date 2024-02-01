@@ -2,27 +2,25 @@
 <TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.55">
 	<Project ProjectGUID="{20BF98A4-8B61-461B-A3F3-98EE69E38A6D}" Target64Bit="true" ShowHideConfigurations="#x106">
 		<System>
-			<Settings MaxCpus="2">
-				<Cpu CpuId="1"/>
-			</Settings>
+			<Settings MaxCpus="2"/>
 			<Licenses>
 				<Target BkhfOrder="bstiffler_demo6030" CustomOrder="bstiffler">
-					<ManualSelect>{ADDFAE21-8CFE-4AF3-9F46-29C36F985936}</ManualSelect>
 					<ManualSelect>{B937370F-23C1-47BE-B537-8F8FF797B168}</ManualSelect>
+					<ManualSelect>{ADDFAE21-8CFE-4AF3-9F46-29C36F985936}</ManualSelect>
 					<ManualSelect>{648F394E-7DD1-499C-8112-7C38E161A94C}</ManualSelect>
 					<ManualSelect>{67B4BA05-C1F2-4184-AE5F-4BAB0FFB09E1}</ManualSelect>
 					<ManualSelect>{42E60F0D-E1AD-4B78-84B8-FD3ECF44FAA7}</ManualSelect>
-					<ManualSelect>{0ABFD2B0-EAE1-4DC7-AABE-03093B0786B7}</ManualSelect>
-					<ManualSelect>{02AC2825-C3C7-4D15-AAF6-4EB45EFAA2D0}</ManualSelect>
-					<ManualSelect>{D58728E0-7762-4145-8A93-80D55E0453A6}</ManualSelect>
 					<ManualSelect>{35DD950F-F835-4461-879E-7CDC54724191}</ManualSelect>
-					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
+					<ManualSelect>{D58728E0-7762-4145-8A93-80D55E0453A6}</ManualSelect>
+					<ManualSelect>{02AC2825-C3C7-4D15-AAF6-4EB45EFAA2D0}</ManualSelect>
+					<ManualSelect>{0ABFD2B0-EAE1-4DC7-AABE-03093B0786B7}</ManualSelect>
 					<ManualSelect>{BDCC0070-42D5-49AE-ABF1-1D4434813D60}</ManualSelect>
+					<ManualSelect>{92583661-35AE-45CE-BD4F-C35BFE16F07E}</ManualSelect>
 					<ManualSelect>{9FD32FC8-0CF9-4C5B-95FB-F35423496A77}</ManualSelect>
-					<ManualSelect>{27326EE5-AB30-4084-B15B-8CCA96CCBF0B}</ManualSelect>
 					<ManualSelect>{4AB869F0-145C-4EB0-878E-69BB1793E116}</ManualSelect>
-					<ManualSelect>{675EAD89-D993-447C-8F72-B406FE2EFDC9}</ManualSelect>
+					<ManualSelect>{27326EE5-AB30-4084-B15B-8CCA96CCBF0B}</ManualSelect>
 					<ManualSelect>{2149932B-0B77-4004-B43F-E85CEEFF347D}</ManualSelect>
+					<ManualSelect>{675EAD89-D993-447C-8F72-B406FE2EFDC9}</ManualSelect>
 					<ManualSelect>{B86A5E22-F738-4626-A9AA-59E7FA9884B3}</ManualSelect>
 				</Target>
 			</Licenses>
@@ -118,7 +116,7 @@
 					</TaskPouOids>
 				</Instance>
 			</Project>
-			<Project Disabled="true" GUID="{3CA6AD6D-9730-4384-B9AB-2C933A562319}" Name="SIM" PrjFilePath="SIM\SIM.plcproj" TmcFilePath="SIM\SIM.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" SymbolicMapping="true">
+			<Project GUID="{3CA6AD6D-9730-4384-B9AB-2C933A562319}" Name="SIM" PrjFilePath="SIM\SIM.plcproj" TmcFilePath="SIM\SIM.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" SymbolicMapping="true">
 				<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="SIM\SIM.tmc" TmcHash="{87A11DD4-A5B9-9E4F-4F22-C61D20AA4C14}">
 					<Name>SIM Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>

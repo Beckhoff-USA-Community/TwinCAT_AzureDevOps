@@ -30,10 +30,6 @@ namespace TCxUnitTester
             using (var session = new AdsSession(new AmsNetId(amsNetId), port))
             {
                 session.Connect();
-
-                if (!session.IsConnected)
-                    throw new Exception("ADS session failed to connect.");
-
                 session.Settings.SymbolLoader.SymbolsLoadMode = TwinCAT.SymbolsLoadMode.Flat;
 
                 var symbols = session.SymbolServer.Symbols

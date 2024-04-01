@@ -21,7 +21,7 @@ END_VAR
         <ST><![CDATA[MockStatus.bBarcodeStatus := TRUE;
 MockStatus.bCapperStatus := TRUE;
 MockStatus.bFillerStatus := TRUE;
-MockStatus.bWeightStatus := TRUE;
+MockStatus.bWeightStatus := FALSE;
 
 testExpected := TRUE;
 testResult := fbCell.CheckPart(MockStatus);

@@ -29,7 +29,7 @@ testResult := fbCell.CheckPart(MockStatus);
 Execute := AssertEquals(
 	testExpected, 
 	testResult, 
-	'CheckPart Part status mismatch.'
+	'CheckPart Part status expected true, returned false.'
 );]]></ST>
       </Implementation>
     </Method>
